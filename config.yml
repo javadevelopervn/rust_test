@@ -1,0 +1,22 @@
+steps:
+  - name: "Get user"
+    request:
+      method: GET
+      url: "https://jsonplaceholder.typicode.com/users/1"
+    concurrency: 1
+    iterations: 1
+  - name: "Create post"
+    request:
+      method: POST
+      url: "https://jsonplaceholder.typicode.com/posts"
+      headers:
+        - ["content-type", "application/json; charset=UTF-8"]
+      body: |
+        {
+          "title": "foo",
+          "body": "bar",
+          "userId": 1,
+          "previous_response": "{{response}}"
+        }
+    concurrency: 1
+    iterations: 1
